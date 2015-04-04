@@ -13,8 +13,7 @@ package body utl.utl_user is
             ''' ||
             tablespace_datafile ||
             '''      size   100M
-            autoextend on maxsize 20G
-            extent management local autoallocate';
+            autoextend on maxsize 20G';
         end;
 
     procedure create_tablespace(
@@ -78,7 +77,7 @@ package body utl.utl_user is
             end if;
             if tablespace_datafile_dir is null
             then
-                l_tablspc_datafile_dir := utl.default_tablespace_path;
+                l_tablspc_datafile_dir := default_tablespace_path;
             else
                 l_tablspc_datafile_dir := tablespace_datafile_dir;
             end if;
@@ -86,13 +85,13 @@ package body utl.utl_user is
             then
                 create_tablespace(
                     tablespace_name => l_data_tablespace_name,
-                    tablespace_datafile_dir => tablespace_datafile_dir);
+                    tablespace_datafile_dir => l_tablspc_datafile_dir);
             end if;
             if not tablespace_exists(l_index_tablespace_name)
             then
                 create_tablespace(
                     tablespace_name => l_index_tablespace_name,
-                    tablespace_datafile_dir => tablespace_datafile_dir);
+                    tablespace_datafile_dir => l_tablspc_datafile_dir);
             end if;
             execute immediate
             '
