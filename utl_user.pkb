@@ -117,6 +117,17 @@ package body utl.utl_user is
             'grant super_user to ' || user_name;
         end;
 
+    procedure grant_direct_exe_privileges(user_name varchar2)
+    is
+        begin
+            for c in (select table_name
+                      from all_tab_privs
+                      where grantee = 'SUPER_USER'
+                            and privilege = 'EXECUTE') loop
+                execute immediate 'grant execute on ' || c.table_name || ' to ' || user_name;
+            end loop;
+        end;
+
     procedure create_super_user(
         user_name               varchar2,
         data_tablespace_name    varchar2,
@@ -126,6 +137,7 @@ package body utl.utl_user is
         begin
             create_user(user_name, data_tablespace_name, index_tablespace_name, tablespace_datafile_dir);
             grant_super_user_privileges(user_name);
+            grant_direct_exe_privileges(user_name);
         end;
 
 end;
