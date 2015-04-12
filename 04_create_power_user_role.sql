@@ -7,10 +7,12 @@ create role power_user;
 grant
 create session, create any table, create any view,
 create any materialized view, create any index, drop any table, drop any view,
-drop any materialized view, alter any table, insert any table, alter any materialized view,
-select any table, create any sequence, comment any table, create any type,
+drop any materialized view, alter any table, alter any materialized view,
+create any sequence, comment any table, create any type, create library,
 execute any type, create any procedure, execute any procedure, create any cluster,
-create library to power_user;
+select any table, insert any table, delete any table, update any table, select any sequence,
+select any transaction
+to power_user;
 
 begin
     for c in (
