@@ -19,11 +19,11 @@ authid current_user is
         index_tablespace_name   varchar2 default null,
         tablespace_datafile_dir varchar2 default null);
 
-    procedure grant_super_user_privileges(user_name varchar2);
+    procedure grant_power_user_privileges(user_name varchar2);
 
     procedure grant_direct_exe_privileges(user_name varchar2);
 
-    procedure create_super_user(
+    procedure create_power_user(
         user_name               varchar2,
         data_tablespace_name    varchar2 default null,
         index_tablespace_name   varchar2 default null,

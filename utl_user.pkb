@@ -110,11 +110,11 @@ package body utl.utl_user is
             ' enable editions';
         end;
 
-    procedure grant_super_user_privileges(user_name varchar2)
+    procedure grant_power_user_privileges(user_name varchar2)
     is
         begin
             execute immediate
-            'grant super_user to ' || user_name;
+            'grant power_user to ' || user_name;
         end;
 
     procedure grant_direct_exe_privileges(user_name varchar2)
@@ -128,7 +128,7 @@ package body utl.utl_user is
             end loop;
         end;
 
-    procedure create_super_user(
+    procedure create_power_user(
         user_name               varchar2,
         data_tablespace_name    varchar2,
         index_tablespace_name   varchar2,
@@ -136,7 +136,7 @@ package body utl.utl_user is
     is
         begin
             create_user(user_name, data_tablespace_name, index_tablespace_name, tablespace_datafile_dir);
-            grant_super_user_privileges(user_name);
+            grant_power_user_privileges(user_name);
             grant_direct_exe_privileges(user_name);
         end;
 
