@@ -11,7 +11,7 @@ drop any materialized view, alter any table, alter any materialized view,
 create any sequence, comment any table, create any type, create library,
 execute any type, create any procedure, execute any procedure, create any cluster,
 select any table, insert any table, delete any table, update any table, select any sequence,
-select any transaction
+select any transaction, exp_full_database, imp_full_database
 to power_user;
 
 begin
