@@ -25,6 +25,8 @@ begin
     end loop;
 end;
 
+grant read, write on directory data_pump_dir to power_user;
+
 grant select on dba_tablespaces to power_user;
 
 grant execute on utl_recomp to power_user;
