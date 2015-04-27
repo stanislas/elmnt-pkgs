@@ -24,6 +24,7 @@ begin
         execute immediate 'grant select on ' || c.object_name || ' to power_user';
     end loop;
 end;
+/
 
 grant read, write on directory data_pump_dir to power_user;
 
