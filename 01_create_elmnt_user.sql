@@ -8,7 +8,8 @@
 create user elmnt identified by password
 default tablespace users
 temporary tablespace temp
-quota unlimited on users;
+quota unlimited on users
+account lock;
 
 -- 2. grant privileges.
 
