@@ -1,8 +1,23 @@
 --
--- 2. The super user role is assigned to every user
+-- The power user role is assigned to every dev user
 --
 
-create role elmnt_power_user;
+declare
+	elmnt_power_user_exists number;
+begin
+	select case when exists(select *
+	                        from dba_roles
+	                        where ROLE = 'ELMNT_POWER_USER')
+		then 1
+	       else 0 end
+	into elmnt_power_user_exists
+	from dual;
+	if elmnt_power_user_exists = 0
+	then
+		execute immediate 'create role elmnt_power_user';
+	end if;
+end;
+/
 
 grant
 create session, create any table, create any view,
@@ -12,17 +27,17 @@ create any sequence, comment any table, create any type, create library,
 execute any type, create any procedure, execute any procedure, create any cluster,
 select any table, insert any table, delete any table, update any table, select any sequence,
 select any transaction, exp_full_database, imp_full_database
-to power_user;
+to elmnt_power_user;
 
 begin
-    for c in (
-    select object_name
-    from user_objects
-    where object_type = 'VIEW' and
-          object_name like 'V\_$%' escape '\' )
-    loop
-        execute immediate 'grant select on ' || c.object_name || ' to elmnt_power_user';
-    end loop;
+	for c in (
+	select object_name
+	from user_objects
+	where object_type = 'VIEW' and
+	      object_name like 'V\_$%' escape '\' )
+	loop
+		execute immediate 'grant select on ' || c.object_name || ' to elmnt_power_user';
+	end loop;
 end;
 /
 

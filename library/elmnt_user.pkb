@@ -122,7 +122,7 @@ package body elmnt.elmnt_user is
         begin
             for c in (select table_name
                       from all_tab_privs
-                      where grantee = 'SUPER_USER'
+                      where grantee = 'ELMNT_POWER_USER'
                             and privilege = 'EXECUTE') loop
                 execute immediate 'grant execute on ' || c.table_name || ' to ' || user_name;
             end loop;
