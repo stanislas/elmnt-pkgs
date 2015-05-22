@@ -1,5 +1,5 @@
 create or replace
-package body utl_base is
+package body elmnt_base is
 
     function object_exists(
                           object_name varchar2,

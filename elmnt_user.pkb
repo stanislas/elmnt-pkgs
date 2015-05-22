@@ -1,5 +1,5 @@
 create or replace
-package body utl.utl_user is
+package body elmnt.elmnt_user is
 
     procedure create_tablespace(
         tablespace_name     varchar2,
@@ -110,11 +110,11 @@ package body utl.utl_user is
             ' enable editions';
         end;
 
-    procedure grant_power_user_privileges(user_name varchar2)
+    procedure grant_elmnt_power_user_privileges(user_name varchar2)
     is
         begin
             execute immediate
-            'grant power_user to ' || user_name;
+            'grant elmnt_power_user to ' || user_name;
         end;
 
     procedure grant_direct_exe_privileges(user_name varchar2)
@@ -128,7 +128,7 @@ package body utl.utl_user is
             end loop;
         end;
 
-    procedure create_power_user(
+    procedure create_elmnt_power_user(
         user_name               varchar2,
         data_tablespace_name    varchar2,
         index_tablespace_name   varchar2,
@@ -136,7 +136,7 @@ package body utl.utl_user is
     is
         begin
             create_user(user_name, data_tablespace_name, index_tablespace_name, tablespace_datafile_dir);
-            grant_power_user_privileges(user_name);
+            grant_elmnt_power_user_privileges(user_name);
             grant_direct_exe_privileges(user_name);
         end;
 

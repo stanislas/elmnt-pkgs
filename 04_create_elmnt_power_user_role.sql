@@ -2,7 +2,7 @@
 -- 2. The super user role is assigned to every user
 --
 
-create role power_user;
+create role elmnt_power_user;
 
 grant
 create session, create any table, create any view,
@@ -21,22 +21,22 @@ begin
     where object_type = 'VIEW' and
           object_name like 'V\_$%' escape '\' )
     loop
-        execute immediate 'grant select on ' || c.object_name || ' to power_user';
+        execute immediate 'grant select on ' || c.object_name || ' to elmnt_power_user';
     end loop;
 end;
 /
 
-grant read, write on directory data_pump_dir to power_user;
+grant read, write on directory data_pump_dir to elmnt_power_user;
 
-grant select on dba_tablespaces to power_user;
+grant select on dba_tablespaces to elmnt_power_user;
 
-grant execute on utl_recomp to power_user;
-grant execute on dbms_lock to power_user;
-grant execute on dbms_stats to power_user;
-grant execute on dbms_mview to power_user;
-grant execute on dbms_scheduler to power_user;
-grant execute on dbms_aq to power_user;
+grant execute on utl_recomp to elmnt_power_user;
+grant execute on dbms_lock to elmnt_power_user;
+grant execute on dbms_stats to elmnt_power_user;
+grant execute on dbms_mview to elmnt_power_user;
+grant execute on dbms_scheduler to elmnt_power_user;
+grant execute on dbms_aq to elmnt_power_user;
 
-grant execute on utl_base to power_user;
-grant execute on utl_user to power_user;
-grant execute on default_tablespace_path to power_user;
+grant execute on elmnt_base to elmnt_power_user;
+grant execute on elmnt_user to elmnt_power_user;
+grant execute on default_tablespace_path to elmnt_power_user;

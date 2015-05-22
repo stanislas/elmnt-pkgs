@@ -1,9 +1,9 @@
 --
 -- 01. Creation of public synonyms for some system packages
---     and utl packages/functions
+--     and elmnt packages/functions
 --
 
 create public synonym utl_recomp for sys.utl_recomp;
-create public synonym utl_base for utl.utl_base;
-create public synonym utl_user for utl.utl_user;
-create public synonym default_tablespace_path for utl.default_tablespace_path;
+create public synonym elmnt_base for elmnt.elmnt_base;
+create public synonym elmnt_user for elmnt.elmnt_user;
+create public synonym default_tablespace_path for elmnt.default_tablespace_path;

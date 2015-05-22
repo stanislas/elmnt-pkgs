@@ -1,5 +1,5 @@
 create or replace
-package utl.utl_user
+package elmnt.elmnt_user
 authid current_user is
 
     procedure create_tablespace(
@@ -19,11 +19,11 @@ authid current_user is
         index_tablespace_name   varchar2 default null,
         tablespace_datafile_dir varchar2 default null);
 
-    procedure grant_power_user_privileges(user_name varchar2);
+    procedure grant_elmnt_power_user_privileges(user_name varchar2);
 
     procedure grant_direct_exe_privileges(user_name varchar2);
 
-    procedure create_power_user(
+    procedure create_elmnt_power_user(
         user_name               varchar2,
         data_tablespace_name    varchar2 default null,
         index_tablespace_name   varchar2 default null,
