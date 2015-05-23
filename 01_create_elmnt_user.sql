@@ -2,8 +2,11 @@
 -- the utilities are install on a special user elmnt.
 -- use the following instuctions/script.
 --
-set echo off
+
 -- 1. create the elmnt user
+
+set echo off
+set verify off
 
 accept fmwk_pswd char default 'elmnt' prompt "enter a password for the user elmnt (default is elmnt): " hide
 
@@ -11,6 +14,8 @@ create user elmnt identified by "&&fmwk_pswd"
 default tablespace users
 temporary tablespace temp
 quota unlimited on users;
+
+set echo on
 
 -- 2. grant privileges.
 
@@ -33,3 +38,6 @@ end;
 /
 
 grant select any dictionary to elmnt;
+
+exit
+/
