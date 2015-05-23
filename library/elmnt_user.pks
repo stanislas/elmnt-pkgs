@@ -13,11 +13,15 @@ authid current_user is
 	function tablespace_exists(tablespace_name varchar2)
 		return boolean;
 
+	function user_exists(user_name varchar2)
+		return boolean;
+
 	procedure create_user(
-		user_name               varchar2,
-		data_tablespace_name    varchar2 default null,
-		index_tablespace_name   varchar2 default null,
-		tablespace_datafile_dir varchar2 default null);
+	user_name               varchar2,
+	data_tablespace_name    varchar2 default null,
+	index_tablespace_name   varchar2 default null,
+	tablespace_datafile_dir varchar2 default null,
+	drop_if_exists          boolean default false);
 
 	procedure grant_elmnt_power_user_privs(user_name varchar2);
 
@@ -29,7 +33,8 @@ authid current_user is
 		user_name               varchar2,
 		data_tablespace_name    varchar2 default null,
 		index_tablespace_name   varchar2 default null,
-		tablespace_datafile_dir varchar2 default null);
+		tablespace_datafile_dir varchar2 default null,
+		drop_if_exists          boolean default false);
 
 end;
 /

@@ -49,16 +49,36 @@ package body elmnt.elmnt_user is
 			end if;
 		end;
 
+	function user_exists(user_name varchar2)
+		return boolean
+	is
+		flag integer;
+		begin
+			select case when exists(select *
+			                        from dba_users
+			                        where username = user_name)
+				then 1
+			       else 0 end
+			into flag
+			from dual;
+			return flag = 1;
+		end;
+
 	procedure create_user(
 		user_name               varchar2,
 		data_tablespace_name    varchar2,
 		index_tablespace_name   varchar2,
-		tablespace_datafile_dir varchar2)
+		tablespace_datafile_dir varchar2,
+		drop_if_exists          boolean)
 	is
 		l_data_tablespace_name  varchar2(50);
 		l_index_tablespace_name varchar2(50);
 		l_tablspc_datafile_dir  varchar2(50);
 		begin
+			if drop_if_exists and user_exists(user_name)
+			then
+				execute immediate 'drop user ' || user_name || ' cascade';
+			end if;
 			if data_tablespace_name is null
 			then
 				l_data_tablespace_name :=
@@ -141,10 +161,12 @@ package body elmnt.elmnt_user is
 		user_name               varchar2,
 		data_tablespace_name    varchar2,
 		index_tablespace_name   varchar2,
-		tablespace_datafile_dir varchar2)
+		tablespace_datafile_dir varchar2,
+		drop_if_exists          boolean)
 	is
 		begin
-			create_user(user_name, data_tablespace_name, index_tablespace_name, tablespace_datafile_dir);
+			create_user(user_name, data_tablespace_name, index_tablespace_name, tablespace_datafile_dir,
+			            drop_if_exists);
 			grant_elmnt_power_user_privs(user_name);
 			grant_direct_elmnt_sys_privs(user_name);
 			grant_direct_elmnt_exe_privs(user_name);
