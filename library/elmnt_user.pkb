@@ -152,7 +152,7 @@ package body elmnt.elmnt_user is
 	is
 		begin
 			for c in (select table_name
-			          from all_tab_privs
+			          from dba_tab_privs
 			          where grantee = c_elnmt_power_user
 			                and privilege = 'EXECUTE') loop
 				execute immediate 'grant execute on ' || c.table_name || ' to ' || user_name;
