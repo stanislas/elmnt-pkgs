@@ -1,6 +1,8 @@
 create or replace
 package body elmnt.elmnt_user is
 
+	c_elnmt_power_user constant varchar2(100) := 'ELMNT_POWER_USER';
+
 	procedure create_tablespace(
 		tablespace_name     varchar2,
 		tablespace_datafile varchar2)
@@ -141,7 +143,7 @@ package body elmnt.elmnt_user is
 		begin
 			for c in (select privilege
 			          from dba_sys_privs
-			          where grantee = 'ELMNT_POWER_USER') loop
+			          where grantee = c_elnmt_power_user) loop
 				execute immediate 'grant ' || c.privilege || ' to ' || user_name;
 			end loop;
 		end;
@@ -151,7 +153,7 @@ package body elmnt.elmnt_user is
 		begin
 			for c in (select table_name
 			          from all_tab_privs
-			          where grantee = 'ELMNT_POWER_USER'
+			          where grantee = c_elnmt_power_user
 			                and privilege = 'EXECUTE') loop
 				execute immediate 'grant execute on ' || c.table_name || ' to ' || user_name;
 			end loop;
@@ -170,6 +172,19 @@ package body elmnt.elmnt_user is
 			grant_elmnt_power_user_privs(user_name);
 			grant_direct_elmnt_sys_privs(user_name);
 			grant_direct_elmnt_exe_privs(user_name);
+		end;
+
+	procedure normalize_elmnt_power_users
+	is
+		begin
+			for c in (select du.username
+			          from dba_users du
+			          where exists(select 1
+			                       from dba_role_privs drp
+			                       where drp.grantee = du.username and drp.granted_role = c_elnmt_power_user)) loop
+				grant_direct_elmnt_sys_privs(c.username);
+				grant_direct_elmnt_exe_privs(c.username);
+			end loop;
 		end;
 
 end;
