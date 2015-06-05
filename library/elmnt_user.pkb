@@ -181,7 +181,8 @@ package body elmnt.elmnt_user is
 			          from dba_users du
 			          where exists(select 1
 			                       from dba_role_privs drp
-			                       where drp.grantee = du.username and drp.granted_role = c_elnmt_power_user)) loop
+			                       where drp.grantee = du.username and drp.granted_role = c_elnmt_power_user)
+			                and du.username <> user) loop
 				grant_direct_elmnt_sys_privs(c.username);
 				grant_direct_elmnt_exe_privs(c.username);
 			end loop;
