@@ -27,7 +27,7 @@ create any sequence, comment any table, create any type, create library,
 execute any type, create any procedure, execute any procedure, create any cluster,
 select any table, insert any table, delete any table, update any table, select any sequence,
 select any transaction, exp_full_database, imp_full_database, create job,
-select any dictionary
+select any dictionary, create database link
 to elmnt_power_user;
 
 begin
